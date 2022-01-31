@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
+import Pagination from '../components/Pagination';
 
 export default function Home() {
   return (
     <div>
-      <h1>Homepage</h1>
+      <Header />
+      <Pagination />
     </div>
   );
 }

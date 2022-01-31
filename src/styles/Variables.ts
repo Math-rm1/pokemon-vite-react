@@ -23,7 +23,6 @@ const Variables = css`
     --blue: #057dcd;
 
     // Other
-    --max-width: 1500px;
     --transition: all 0.25s ease-in-out;
   }
 `;
