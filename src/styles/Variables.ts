@@ -17,10 +17,14 @@ const Variables = css`
     --fz-xxl: 22px;
 
     // Colors
+    --red: #e3350d;
+    --orange: #ee6b2f;
     --white: #fff;
     --black: #000;
-    --gray: #7f7f7f;
+    --gray: #616161;
+    --dark-gray: #313131;
     --blue: #057dcd;
+    --light-gray: #dcd6d6;
 
     // Other
     --transition: all 0.25s ease-in-out;

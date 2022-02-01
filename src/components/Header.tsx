@@ -1,5 +1,6 @@
 import React from 'react';
 import { HeaderContainer, HeaderContent } from '../styles/styles';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   return (
@@ -7,11 +8,11 @@ export default function Header() {
       <HeaderContent>
         <ul>
           <li>
-            <a>Pokémon React</a>
+            <Link to='/'>Pokémon React</Link>
           </li>
 
           <li>
-            <a>Favorites</a>
+            <Link to='/favorites'>Favorites</Link>
           </li>
         </ul>
       </HeaderContent>
