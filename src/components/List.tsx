@@ -4,10 +4,15 @@ import {
   ListContent,
   ListInputContainer,
 } from '../styles/styles';
+import { Pokemon } from '../typings/Pokemon';
 import Card from './Card';
 import Modal from './Modal';
 
-export default function List() {
+export type PokeListProps = {
+  pokemonList: Pokemon[];
+};
+
+export default function List(props: PokeListProps) {
   const [search, setSearch] = useState<string>('');
 
   const pokeList: string[] = [];
@@ -23,13 +28,13 @@ export default function List() {
           />
         </ListInputContainer>
         <ListContent>
-          {pokeList
+          {props.pokemonList
             ?.filter(p => {
               if (!search) return p;
-              if (p.toLowerCase().includes(search.toLowerCase())) return p;
+              if (p.name.toLowerCase().includes(search.toLowerCase())) return p;
             })
             .map(p => (
-              <Card key={p + 1} name={p} />
+              <Card key={p.id} pokemon={p} />
             ))}
         </ListContent>
       </ListContainer>

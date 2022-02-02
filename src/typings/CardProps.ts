@@ -1,3 +1,5 @@
+import { Pokemon } from './Pokemon';
+
 export type CardProps = {
-  name: string;
+  pokemon: Pokemon;
 };
