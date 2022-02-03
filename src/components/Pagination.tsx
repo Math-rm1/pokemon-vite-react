@@ -1,12 +1,19 @@
 import React from 'react';
-import { PaginationContainer } from '../styles/styles';
-import Button from './Button';
+import { PaginationButton, PaginationContainer } from '../styles/styles';
+import { PaginationProps } from '../typings/PaginationProps';
 
-export default function Pagination() {
+export default function Pagination({
+  gotoNextPage,
+  gotoPreviousPage,
+}: PaginationProps) {
   return (
     <PaginationContainer>
-      <Button text='Previous' />
-      <Button text='Next' />
+      {gotoPreviousPage && (
+        <PaginationButton onClick={gotoPreviousPage}>Previous</PaginationButton>
+      )}
+      {gotoNextPage && (
+        <PaginationButton onClick={gotoNextPage}>Next</PaginationButton>
+      )}
     </PaginationContainer>
   );
 }

@@ -8,6 +8,11 @@ import { PokemonResponse } from '../typings/PokemonResponse';
 
 export default function Home() {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const [previousPageUrl, setPreviousPageUrl] = useState<string>('');
+  const [nextPageUrl, setNextPageUrl] = useState<string>('');
   const [currentPageUrl, setCurrentPageUrl] = useState<string>(
     'https://pokeapi.co/api/v2/pokemon',
   );
@@ -16,6 +21,7 @@ export default function Home() {
     const source: CancelTokenSource = axios.CancelToken.source();
 
     (async () => {
+      setLoading(true);
       const res: AxiosResponse = await axios.get(currentPageUrl, {
         cancelToken: source.token,
       });
@@ -26,6 +32,10 @@ export default function Home() {
         }),
       );
 
+      setNextPageUrl(res.data.next);
+      setPreviousPageUrl(res.data.previous);
+
+      setLoading(false);
       setPokemonList(pokemonResults);
     })();
 
@@ -34,11 +44,22 @@ export default function Home() {
     };
   }, [currentPageUrl]);
 
+  function gotoNextPage() {
+    if (nextPageUrl) setCurrentPageUrl(nextPageUrl);
+  }
+
+  function gotoPrevPage() {
+    if (previousPageUrl) setCurrentPageUrl(previousPageUrl);
+  }
+
   return (
     <>
       <Header />
       <List pokemonList={pokemonList} />
-      <Pagination />
+      <Pagination
+        gotoNextPage={nextPageUrl ? gotoNextPage : null}
+        gotoPreviousPage={previousPageUrl ? gotoPrevPage : null}
+      />
     </>
   );
 }
