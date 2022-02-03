@@ -15,17 +15,20 @@ export const CardContainer = styled.div`
   height: 300px;
   background-color: var(--dark-gray);
 
-  div > span:nth-child(1) {
-    margin-right: 20px;
+  div > span:nth-child(2) {
+    margin-left: 20px;
   }
 
   div > span {
+    text-align: center;
     background-color: black;
-    padding: 5px;
+    display: inline-block;
+    width: 70px;
     border-radius: 5px;
   }
 
   h2 {
+    text-transform: capitalize;
     font-size: var(--fz-lg);
   }
 
@@ -111,7 +114,7 @@ export const PaginationButton = styled.button`
 
 export const PaginationContainer = styled.div`
   width: 100%;
-  height: 50px;
+  height: 60px;
   background-color: var(--gray);
   display: flex;
   align-items: center;
