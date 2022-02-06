@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import List from '../components/List';
 import Pagination from '../components/Pagination';
-import { Pokemon } from '../typings/Pokemon';
-import { PokemonResponse } from '../typings/PokemonResponse';
+import { Pokemon } from '../types/Pokemon';
+import { PokemonResponse } from '../types/PokemonResponse';
 
 export default function Home() {
   const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
 
-  const [loading, setLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const [previousPageUrl, setPreviousPageUrl] = useState<string>('');
   const [nextPageUrl, setNextPageUrl] = useState<string>('');
@@ -21,7 +21,7 @@ export default function Home() {
     const source: CancelTokenSource = axios.CancelToken.source();
 
     (async () => {
-      setLoading(true);
+      setIsLoading(true);
       const res: AxiosResponse = await axios.get(currentPageUrl, {
         cancelToken: source.token,
       });
@@ -35,7 +35,7 @@ export default function Home() {
       setNextPageUrl(res.data.next);
       setPreviousPageUrl(res.data.previous);
 
-      setLoading(false);
+      setIsLoading(false);
       setPokemonList(pokemonResults);
     })();
 
@@ -55,7 +55,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <List pokemonList={pokemonList} />
+      <List pokemonList={pokemonList} isLoading={isLoading} />
       <Pagination
         gotoNextPage={nextPageUrl ? gotoNextPage : null}
         gotoPreviousPage={previousPageUrl ? gotoPrevPage : null}

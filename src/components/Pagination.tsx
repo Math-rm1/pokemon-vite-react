@@ -1,6 +1,6 @@
 import React from 'react';
 import { PaginationButton, PaginationContainer } from '../styles/styles';
-import { PaginationProps } from '../typings/PaginationProps';
+import { PaginationProps } from '../types/PaginationProps';
 
 export default function Pagination({
   gotoNextPage,
