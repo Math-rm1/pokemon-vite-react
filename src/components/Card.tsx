@@ -29,11 +29,16 @@ export default function Card({
   const Star = isFavorite ? FaStar : FaRegStar;
 
   return (
-    <CardContainer>
+    <CardContainer
+      mainColor={`#${
+        typeColors[pokemon.types[0].type.name as keyof typeof typeColors]
+      }`}
+      id={`#${pokemon.id}`}
+    >
       <IconContainer>
         <Star
           color={isFavorite ? '#fbc706' : 'white'}
-          size={20}
+          size={24}
           style={{ cursor: 'pointer' }}
           onClick={() => {
             handleFavorite(pokemon);
@@ -42,9 +47,7 @@ export default function Card({
         />
       </IconContainer>
       <img src={img} alt={pokemon.name} />
-      <h2>
-        {pokemon.name} #{pokemon.id}
-      </h2>
+      <h2>{pokemon.name}</h2>
       <TypesContainer>
         {pokemon.types.map(t => (
           <span
