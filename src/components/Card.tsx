@@ -4,6 +4,7 @@ import {
   CardContainer,
   DetailsContainer,
   IconContainer,
+  TypeItem,
   TypesContainer,
 } from '../styles/styles';
 import { CardProps } from '../types/CardProps';
@@ -39,7 +40,6 @@ export default function Card({
         <Star
           color={isFavorite ? '#fbc706' : 'white'}
           size={24}
-          style={{ cursor: 'pointer' }}
           onClick={() => {
             handleFavorite(pokemon);
             setIsFavorite(!isFavorite);
@@ -50,20 +50,16 @@ export default function Card({
       <h2>{pokemon.name}</h2>
       <TypesContainer>
         {pokemon.types.map(t => (
-          <span
-            style={{
-              backgroundColor: `#${
-                typeColors[t.type.name as keyof typeof typeColors]
-              }`,
-            }}
+          <TypeItem
+            typeColor={`#${typeColors[t.type.name as keyof typeof typeColors]}`}
             key={`${pokemon.id} - ${t.type.name}`}
           >
             {t.type.name}
-          </span>
+          </TypeItem>
         ))}
       </TypesContainer>
       <DetailsContainer onClick={() => handleOpenModal(pokemon)}>
-        <span>Details</span>
+        <h4>Details</h4>
         <FaArrowAltCircleRight />
       </DetailsContainer>
     </CardContainer>

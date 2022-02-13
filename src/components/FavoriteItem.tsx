@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FavoriteItemContainer } from '../styles/styles';
 import { FaTrashAlt } from 'react-icons/fa';
 import { FavoriteItemProps } from '../types/FavoriteItemProps';
+import { FaRegImages } from 'react-icons/fa';
 
 export default function FavoriteItem({
   pokemon,
   handleRemove,
 }: FavoriteItemProps) {
-  const img =
-    pokemon.sprites.other?.['official-artwork'].front_default ||
-    pokemon.sprites.front_default;
+  const [inGameImg, setInGameImg] = useState<boolean>(false);
+
+  const imgOA = pokemon.sprites.other?.['official-artwork'].front_default;
+  const imgGame = pokemon.sprites.front_default;
+
   return (
     <FavoriteItemContainer>
-      <img src={img} alt={pokemon.name} />
-      <h2>{pokemon.name}</h2>
-      <span>{pokemon.id}</span>
-      <FaTrashAlt
-        style={{ cursor: 'pointer' }}
-        onClick={() => handleRemove(pokemon.id)}
-      />
+      <img src={!inGameImg ? imgOA : imgGame} alt={pokemon.name} />
+      <h4>{pokemon.name}</h4>
+      <FaRegImages onClick={() => setInGameImg(!inGameImg)} />
+      <FaTrashAlt onClick={() => handleRemove(pokemon.id)} />
     </FavoriteItemContainer>
   );
 }

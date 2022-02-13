@@ -29,6 +29,15 @@ const slideInFromBottom = keyframes`
   }
 `;
 
+const slideInFromTop = keyframes`
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+`;
+
 const slideInFromLeft = keyframes`
   0% {
     transform: translateX(-100%);
@@ -45,14 +54,18 @@ export const TypesContainer = styled.div`
   > span:nth-child(2) {
     margin-left: 10px;
   }
+`;
 
-  > span {
-    display: inline-block;
-    text-align: center;
+export const TypeItem = styled.span.attrs(
+  (props: { typeColor: string; id: string }) => props,
+)`
+  background: ${props => props.typeColor};
 
-    width: 70px;
-    border-radius: 5px;
-  }
+  display: inline-block;
+  text-align: center;
+
+  width: 70px;
+  border-radius: 5px;
 `;
 
 export const DetailsContainer = styled.div`
@@ -61,8 +74,9 @@ export const DetailsContainer = styled.div`
 
   cursor: pointer;
 
-  > span {
+  > h4 {
     margin-right: 10px;
+    font-weight: normal;
   }
 
   transition: var(--transition);
@@ -76,15 +90,7 @@ export const IconContainer = styled.div`
   justify-content: flex-end;
 
   svg {
-    transition: var(--transition);
-
-    :hover {
-      transform: rotateY(180deg);
-      -webkit-transition: -webkit-transform 0.5s ease-in;
-      -moz-transition: -moz-transform 0.5s ease-in;
-      -o-transition: -o-transform 0.5s ease-in;
-      transition: transform 0.5s ease-in;
-    }
+    cursor: pointer;
   }
 
   width: 80%;
@@ -101,8 +107,8 @@ export const CardContainer = styled.div.attrs(
   border-radius: 10px;
 
   min-width: 230px;
-  width: 360px;
-  height: 360px;
+  width: 340px;
+  height: 340px;
 
   animation: ${fadeIn} 1s;
 
@@ -147,13 +153,7 @@ export const CardContainer = styled.div.attrs(
 
   h2 {
     text-transform: capitalize;
-    font-size: var(--fz-lg);
   }
-
-  span {
-    font-size: var(--fz-md);
-  }
-
   img {
     animation: ${imgIn} 2s, ${fadeIn} 1s;
     z-index: 1;
@@ -172,7 +172,7 @@ export const ListInputContainer = styled.div`
 
   input {
     height: 35px;
-    width: 100%;
+    min-width: 30%;
 
     animation: ${slideInFromLeft} 0.5s;
 
@@ -194,11 +194,11 @@ export const ListContent = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
 `;
 
 export const ListContainer = styled.div`
-  width: 90%;
+  width: 80%;
   min-width: 280px;
   height: 100%;
 
@@ -216,15 +216,21 @@ export const FavoriteListContainer = styled.div`
   display: flex;
   flex-direction: column;
 
-  border: 2px solid var(--white);
-  border-radius: 5px;
+  width: 50%;
 
-  padding: 5px;
-  margin: 20px auto 20px auto;
+  border-radius: 10px;
 
-  width: 70%;
+  background-color: var(--raven-black);
+  animation: ${slideInFromBottom} 1s, ${fadeIn} 1s;
 
-  background-color: #3d3d3d;
+  margin: 40px auto;
+`;
+
+export const FavoriteListEmpty = styled.div`
+  h2 {
+    text-align: center;
+    margin-top: 40px;
+  }
 `;
 
 export const FavoriteItemContainer = styled.div`
@@ -234,14 +240,19 @@ export const FavoriteItemContainer = styled.div`
 
   height: 100px;
   width: 100%;
-
   margin: 20px auto;
 
-  img {
-    width: 70px;
+  svg {
+    cursor: pointer;
   }
 
-  h2 {
+  img {
+    width: 100px;
+  }
+
+  h4 {
+    width: 30%;
+    text-align: center;
     text-transform: capitalize;
   }
 `;
@@ -307,7 +318,7 @@ export const HeaderContent = styled.nav`
   align-items: center;
   display: flex;
 
-  width: 90%;
+  width: 80%;
   height: 80px;
 
   margin: 0 auto;
@@ -324,8 +335,6 @@ export const HeaderContent = styled.nav`
 
     li {
       padding: 5px;
-
-      font-size: var(--fz-xl);
     }
   }
 `;
@@ -339,9 +348,135 @@ export const ModalContainer = styled.div`
   top: 50%;
   z-index: 1000;
 
-  background-color: #fff;
+  display: flex;
 
-  padding: 50px;
+  padding: 10px;
+  border-radius: 10px;
+
+  background-color: var(--dark-gray);
+
+  animation: ${fadeIn} 1.5s;
+
+  svg {
+    margin-right: auto;
+    cursor: pointer;
+
+    transition: var(--transition);
+    :hover {
+      color: var(--silver);
+    }
+  }
+
+  img {
+    animation: ${imgIn} 0.5s, ${fadeIn} 1s;
+
+    width: 240px;
+    height: 240px;
+  }
+`;
+
+export const StatsItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  progress {
+    /* resets */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+
+    width: 100%;
+    height: 16px;
+
+    margin: 10px 0;
+
+    border-radius: 10px;
+
+    background-color: var(--white);
+    color: var(--orange);
+
+    /* webkit */
+    ::-webkit-progress-bar {
+      background: var(--white);
+      border-radius: 10px;
+    }
+
+    ::-webkit-progress-value {
+      background-color: var(--orange);
+      border-radius: 10px;
+    }
+
+    /* moz */
+    ::-moz-progress-bar {
+      background-color: var(--orange);
+      border-radius: 10px;
+    }
+  }
+`;
+
+export const ModalLeftContainer = styled.div`
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  text-transform: capitalize;
+
+  border-radius: 10px;
+
+  margin-right: 40px;
+
+  h3 {
+    border-bottom: 1px solid var(--orange);
+
+    background: var(--raven-black);
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+  }
+
+  h4 {
+    text-align: center;
+  }
+`;
+
+export const ModalRightContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  padding: 20px;
+
+  border-radius: 10px;
+  width: 250px;
+
+  h4 {
+    text-transform: capitalize;
+    text-align: center;
+  }
+
+  h3 {
+    text-align: center;
+    border-bottom: 1px solid var(--orange);
+
+    background: var(--raven-black);
+    border-radius: 5px;
+
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-left: auto;
+  }
+
+  div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const Overlay = styled.div`
@@ -359,7 +494,7 @@ export const Overlay = styled.div`
 
 //#region Loading
 export const LoadingContainer = styled.div`
-  padding: 40px;
+  margin-top: 40px;
 
   text-align: center;
 `;

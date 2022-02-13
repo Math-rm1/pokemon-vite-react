@@ -2,7 +2,6 @@ import React from 'react';
 import { HeaderContainer, HeaderContent } from '../styles/styles';
 import { BsBookmarkStarFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import PokemonLogo from '../assets/pokemon-logo.svg';
 
 export default function Header() {
   return (
@@ -11,7 +10,7 @@ export default function Header() {
         <ul>
           <li>
             <Link to='/'>
-              <img src={PokemonLogo} alt='Pokémon Logo' />
+              <h1>Pokédex</h1>
             </Link>
           </li>
 

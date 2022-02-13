@@ -19,12 +19,46 @@ export const GlobalStyles = createGlobalStyle`
   body {
     min-height: 100%;
     padding-bottom: 60px;
+    overflow-y: scroll;
+
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background-color: var(--raven-black);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: var(--gray);
+    }
   }
 
   body {
     font-family: var(--font-main);
     background-color: var(--dark-gray);
     color: var(--white);
+  }
+
+  h1 {
+    font-size: var(--fz-xxl);
+  }
+
+  h2 {
+    font-size: var(--fz-xl);
+  }
+
+  h3 {
+    font-size: var(--fz-lg);
+  }
+
+  h4 {
+    font-size: var(--fz-md);
+  }
+
+  h5 {
+    font-size: var(--fz-sm);
   }
 
   ul, li, ol {

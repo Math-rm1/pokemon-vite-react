@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import {
   ListContainer,
   ListContent,
@@ -40,13 +41,16 @@ export default function List({ pokemonList, isLoading }: PokeListProps) {
 
     if (!hasPokemon) {
       setFavoritePokemons(favoritePokemons => [...favoritePokemons, pokemon]);
+      toast.success('Pokémon added to your favorites!');
     } else {
       setFavoritePokemons(favoritePokemons.filter(p => p.id != pokemon.id));
+      toast.success('Pokémon removed from your favorites!');
     }
   };
 
   return (
     <>
+      <Toaster reverseOrder={false} />
       <ListContainer>
         <ListInputContainer>
           <input
@@ -75,17 +79,16 @@ export default function List({ pokemonList, isLoading }: PokeListProps) {
           </ListContent>
         ) : (
           <LoadingContainer>
-            <h2>Carregando...</h2>
+            <h2>Loading...</h2>
           </LoadingContainer>
         )}
       </ListContainer>
-      {
-        <Modal
-          detailedPokemon={detailedPokemon}
-          open={modalIsOpen}
-          onClose={handleCloseModal}
-        />
-      }
+
+      <Modal
+        detailedPokemon={detailedPokemon}
+        open={modalIsOpen}
+        onClose={handleCloseModal}
+      />
     </>
   );
 }
