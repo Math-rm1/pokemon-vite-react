@@ -36,15 +36,19 @@ export default function List({ pokemonList, isLoading }: PokeListProps) {
     setModalIsOpen(true);
   };
 
+  const upperPokeName = (name: string) =>
+    `${name[0].toUpperCase() + name.substring(1)}`;
+
   const handleFavorite = (pokemon: Pokemon) => {
     const hasPokemon = favoritePokemons.some(p => p.id === pokemon.id);
+    const pokemonName = upperPokeName(pokemon.name);
 
     if (!hasPokemon) {
       setFavoritePokemons(favoritePokemons => [...favoritePokemons, pokemon]);
-      toast.success('Pokémon added to your favorites!');
+      toast.success(`${pokemonName} added to your favorites!`);
     } else {
       setFavoritePokemons(favoritePokemons.filter(p => p.id != pokemon.id));
-      toast.success('Pokémon removed from your favorites!');
+      toast.success(`${pokemonName} removed from your favorites!`);
     }
   };
 

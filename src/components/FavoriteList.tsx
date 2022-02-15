@@ -7,13 +7,17 @@ import FavoriteItem from './FavoriteItem';
 export default function FavoriteList() {
   const [favoritePokemons, setFavoritePokemons] = useState<Pokemon[]>([]);
 
-  const handleRemove = (id: number) => {
+  const upperPokeName = (name: string) =>
+    `${name[0].toUpperCase() + name.substring(1)}`;
+
+  const handleRemove = (id: number, name: string) => {
     setFavoritePokemons(
       favoritePokemons.filter(p => {
         return p.id !== id;
       }),
     );
-    toast.success('Pokémon removed from favorites!');
+    const pokemonName = upperPokeName(name);
+    toast.success(`${pokemonName} removed from favorites!`);
   };
 
   useEffect(() => {
