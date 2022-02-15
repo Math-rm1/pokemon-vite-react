@@ -9,7 +9,7 @@ export type StatsItemProps = {
 export default function StatsItem({ name, value }: StatsItemProps) {
   return (
     <StatsItemContainer>
-      <h4>{name}</h4>
+      <h4>{name.includes('special') ? name.replace('special', 'sp') : name}</h4>
       <progress max={100} value={value} />
     </StatsItemContainer>
   );

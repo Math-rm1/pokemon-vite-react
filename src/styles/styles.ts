@@ -217,6 +217,7 @@ export const FavoriteListContainer = styled.div`
   flex-direction: column;
 
   width: 50%;
+  min-width: 260px;
 
   border-radius: 10px;
 
@@ -224,6 +225,10 @@ export const FavoriteListContainer = styled.div`
   animation: ${slideInFromBottom} 1s, ${fadeIn} 1s;
 
   margin: 40px auto;
+
+  @media only screen and (max-width: 1024px) {
+    width: 80%;
+  }
 `;
 
 export const FavoriteListEmpty = styled.div`
@@ -238,7 +243,6 @@ export const FavoriteItemContainer = styled.div`
   justify-content: space-around;
   align-items: center;
 
-  height: 100px;
   width: 100%;
   margin: 20px auto;
 
@@ -247,13 +251,36 @@ export const FavoriteItemContainer = styled.div`
   }
 
   img {
-    width: 100px;
+    width: 80px;
   }
 
   h4 {
-    width: 30%;
+    width: 40%;
     text-align: center;
     text-transform: capitalize;
+  }
+
+  @media only screen and (max-width: 720px) {
+    h4 {
+      font-size: var(--fz-sm);
+    }
+
+    img {
+      width: 60px;
+    }
+  }
+
+  @media only screen and (max-width: 460px) {
+    img {
+      width: 40px;
+    }
+    h4 {
+      font-size: var(--fz-xs);
+    }
+    svg:nth-of-type(1) {
+      display: none;
+    }
+    justify-content: space-around;
   }
 `;
 //#endregion
@@ -308,8 +335,9 @@ export const PaginationContainer = styled.div`
 export const HeaderContainer = styled.header`
   ${Variables};
 
-  width: 100%;
   height: 80px;
+  width: 100%;
+  min-width: 280px;
 
   background-color: var(--orange);
 `;
@@ -322,10 +350,6 @@ export const HeaderContent = styled.nav`
   height: 80px;
 
   margin: 0 auto;
-
-  img {
-    width: 160px;
-  }
 
   ul {
     display: flex;
@@ -350,6 +374,9 @@ export const ModalContainer = styled.div`
 
   display: flex;
 
+  width: 40%;
+  min-width: 280px;
+
   padding: 10px;
   border-radius: 10px;
 
@@ -373,6 +400,21 @@ export const ModalContainer = styled.div`
     width: 240px;
     height: 240px;
   }
+
+  @media only screen and (max-width: 1440px) {
+    width: 60%;
+  }
+
+  @media only screen and (max-width: 860px) {
+    width: 90%;
+    h3 {
+      font-size: var(--fz-md);
+    }
+
+    h4 {
+      font-size: var(--fz-sm);
+    }
+  }
 `;
 
 export const StatsItemContainer = styled.div`
@@ -389,9 +431,10 @@ export const StatsItemContainer = styled.div`
     width: 100%;
     height: 16px;
 
-    margin: 10px 0;
+    margin-top: 5px;
+    margin-bottom: 10px;
 
-    border-radius: 10px;
+    border-radius: 5px;
 
     background-color: var(--white);
     color: var(--orange);
@@ -399,18 +442,24 @@ export const StatsItemContainer = styled.div`
     /* webkit */
     ::-webkit-progress-bar {
       background: var(--white);
-      border-radius: 10px;
+      border-radius: 5px;
     }
 
     ::-webkit-progress-value {
       background-color: var(--orange);
-      border-radius: 10px;
+      border-radius: 5px;
     }
 
     /* moz */
     ::-moz-progress-bar {
       background-color: var(--orange);
-      border-radius: 10px;
+      border-radius: 5px;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    progress {
+      height: 7px;
     }
   }
 `;
@@ -441,6 +490,15 @@ export const ModalLeftContainer = styled.div`
   h4 {
     text-align: center;
   }
+
+  @media only screen and (max-width: 768px) {
+    margin-right: 0;
+
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
 `;
 
 export const ModalRightContainer = styled.div`
@@ -450,8 +508,8 @@ export const ModalRightContainer = styled.div`
 
   padding: 20px;
 
+  width: 80%;
   border-radius: 10px;
-  width: 250px;
 
   h4 {
     text-transform: capitalize;
@@ -476,6 +534,10 @@ export const ModalRightContainer = styled.div`
   div:nth-child(2) {
     display: flex;
     flex-direction: column;
+  }
+
+  @media only screen and (max-width: 768px) {
+    justify-content: space-between;
   }
 `;
 
