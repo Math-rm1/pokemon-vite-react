@@ -17,7 +17,7 @@ export default function FavoriteList() {
       }),
     );
     const pokemonName = upperPokeName(name);
-    toast.success(`${pokemonName} removed from favorites!`);
+    toast.success(`${pokemonName} removed from your favorites!`);
   };
 
   useEffect(() => {
