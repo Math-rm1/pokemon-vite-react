@@ -1,6 +1,6 @@
 import { Pokemon } from './Pokemon';
 
 export type PokeListProps = {
-  pokemonList: Pokemon[];
+  pokemonList: Pokemon[] | null;
   isLoading: boolean;
 };
