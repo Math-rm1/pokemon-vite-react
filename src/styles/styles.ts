@@ -232,7 +232,9 @@ export const FavoriteListContainer = styled.div`
 `;
 
 export const FavoriteListEmpty = styled.div`
+  transition: var(--transition);
   h2 {
+    animation: ${slideInFromBottom} 1s, ${fadeIn} 1s;
     text-align: center;
     margin-top: 40px;
   }

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { hasPokemon } from '../helpers/hasPokemon';
+import { upperPokeName } from '../helpers/upperCaseName';
 import {
   ListContainer,
   ListContent,
@@ -12,10 +14,10 @@ import Card from './Card';
 import Modal from './Modal';
 
 export default function List({ pokemonList, isLoading }: PokeListProps) {
-  const [favoritePokemons, setFavoritePokemons] = useState<Pokemon[]>([]);
-  const [search, setSearch] = useState<string>('');
   const [detailedPokemon, setDetailedPokemon] = useState<Pokemon>();
+  const [favoritePokemons, setFavoritePokemons] = useState<Pokemon[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>('');
 
   useEffect(() => {
     const data = localStorage.getItem('favoritePokemons');
@@ -36,20 +38,17 @@ export default function List({ pokemonList, isLoading }: PokeListProps) {
     setModalIsOpen(true);
   };
 
-  const upperPokeName = (name: string) =>
-    `${name[0].toUpperCase() + name.substring(1)}`;
-
   const handleFavorite = (pokemon: Pokemon) => {
-    const hasPokemon = favoritePokemons.some(p => p.id === pokemon.id);
     const pokemonName = upperPokeName(pokemon.name);
-
-    if (!hasPokemon) {
-      setFavoritePokemons(favoritePokemons => [...favoritePokemons, pokemon]);
+    if (!hasPokemon(favoritePokemons, pokemon)) {
+      setFavoritePokemons(prevFavPokemons => [...prevFavPokemons, pokemon]);
       toast.success(`${pokemonName} added to your favorites!`);
-    } else {
-      setFavoritePokemons(favoritePokemons.filter(p => p.id != pokemon.id));
-      toast.success(`${pokemonName} removed from your favorites!`);
+      return;
     }
+    setFavoritePokemons(prevFavPokemons =>
+      prevFavPokemons.filter(p => p.id != pokemon.id),
+    );
+    toast.success(`${pokemonName} removed from your favorites!`);
   };
 
   return (

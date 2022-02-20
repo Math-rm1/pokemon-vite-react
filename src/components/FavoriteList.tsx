@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { upperPokeName } from '../helpers/upperCaseName';
 import { FavoriteListContainer, FavoriteListEmpty } from '../styles/styles';
 import { Pokemon } from '../types/Pokemon';
+import { Delay } from './Delay';
 import FavoriteItem from './FavoriteItem';
 
 export default function FavoriteList() {
   const [favoritePokemons, setFavoritePokemons] = useState<Pokemon[]>([]);
 
-  const upperPokeName = (name: string) =>
-    `${name[0].toUpperCase() + name.substring(1)}`;
-
   const handleRemove = (id: number, name: string) => {
-    setFavoritePokemons(
-      favoritePokemons.filter(p => {
-        return p.id !== id;
-      }),
+    setFavoritePokemons(prevFavPokemons =>
+      prevFavPokemons.filter(p => p.id !== id),
     );
+
     const pokemonName = upperPokeName(name);
     toast.success(`${pokemonName} removed from your favorites!`);
   };
@@ -44,7 +42,7 @@ export default function FavoriteList() {
         </FavoriteListContainer>
       ) : (
         <FavoriteListEmpty>
-          <h2>Add a pokémon to your favorites!</h2>
+          {<Delay ms={750}>{<h2>Add a favorite pokémon!</h2>}</Delay>}
         </FavoriteListEmpty>
       )}
     </>

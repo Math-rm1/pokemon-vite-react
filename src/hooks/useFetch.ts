@@ -28,9 +28,9 @@ export function useFetch<T = unknown>(url: string) {
           setData(dataResults);
           setPreviousUrl(res.data.previous);
           setNextUrl(res.data.next);
-        } else {
-          setData(res.data as T);
+          return;
         }
+        if (res.data) setData(res.data as T);
       } catch (err: unknown) {
         if (err instanceof Error) {
           setError(err);

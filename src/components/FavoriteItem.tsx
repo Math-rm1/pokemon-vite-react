@@ -17,7 +17,9 @@ export default function FavoriteItem({
     <FavoriteItemContainer>
       <img src={!inGameImg ? imgOA : imgGame} alt={pokemon.name} />
       <h4>{pokemon.name}</h4>
-      <FaRegImages onClick={() => setInGameImg(!inGameImg)} />
+      <FaRegImages
+        onClick={() => setInGameImg(prevInGameImg => !prevInGameImg)}
+      />
       <FaTrashAlt onClick={() => handleRemove(pokemon.id, pokemon.name)} />
     </FavoriteItemContainer>
   );
