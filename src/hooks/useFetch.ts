@@ -9,13 +9,13 @@ export function useFetch<T = unknown>(url: string) {
   const [data, setData] = useState<T | null>(null);
 
   useEffect(() => {
-    const source: CancelTokenSource = axios.CancelToken.source();
+    const controller = new AbortController();
 
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const res: AxiosResponse = await axios.get(url, {
-          cancelToken: source.token,
+          signal: controller.signal,
         });
 
         if (res.data.results) {
@@ -43,7 +43,7 @@ export function useFetch<T = unknown>(url: string) {
     fetchData();
 
     return () => {
-      source.cancel();
+      controller.abort();
     };
   }, [url]);
 
