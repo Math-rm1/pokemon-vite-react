@@ -1,12 +1,12 @@
 import React from 'react';
-import { HeaderContainer, HeaderContent } from '../styles/styles';
+import { StyledHeader, StyledHeaderContent } from '../styles/styles';
 import { BsBookmarkStarFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
 export default function Header() {
   return (
-    <HeaderContainer>
-      <HeaderContent>
+    <StyledHeader>
+      <StyledHeaderContent>
         <ul>
           <li>
             <Link to='/'>
@@ -20,7 +20,7 @@ export default function Header() {
             </Link>
           </li>
         </ul>
-      </HeaderContent>
-    </HeaderContainer>
+      </StyledHeaderContent>
+    </StyledHeader>
   );
 }

@@ -14,6 +14,7 @@ export const GlobalStyles = createGlobalStyle`
 
   html {
     height: 100%;
+    font-size: 62.5%;
   }
 
   body {
@@ -61,6 +62,10 @@ export const GlobalStyles = createGlobalStyle`
     font-size: var(--fz-sm);
   }
 
+  h6 {
+    font-size: var(--fz-xs);
+  }
+
   ul, li, ol {
     list-style: none;
   }
@@ -83,6 +88,32 @@ export const GlobalStyles = createGlobalStyle`
 
     :hover {
       color: var(--black)
+    }
+  }
+
+  @media only screen and (max-width: 720px) {
+    h1 {
+      font-size: var(--fz-xl);
+    }
+
+    h2 {
+      font-size: var(--fz-lg);
+    }
+
+    h3 {
+      font-size: var(--fz-md);
+    }
+
+    h4 {
+      font-size: var(--fz-sm);
+    }
+
+    h5 {
+      font-size: var(--fz-xs);
+    }
+
+    h6 {
+      font-size: var(--fz-xxs);
     }
   }
 `;

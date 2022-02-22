@@ -8,17 +8,16 @@ const Variables = css`
       sans-serif;
 
     // Font size
-    --fz-xxs: 10px;
-    --fz-xs: 12px;
-    --fz-sm: 14px;
-    --fz-md: 16px;
-    --fz-lg: 18px;
-    --fz-xl: 20px;
-    --fz-xxl: 22px;
+    --fz-xxs: 0.9rem;
+    --fz-xs: 1rem;
+    --fz-sm: 1.3rem;
+    --fz-md: 1.6rem;
+    --fz-lg: 1.8rem;
+    --fz-xl: 2.4rem;
+    --fz-xxl: 3.2rem;
 
     // Colors
     --red: #e3350d;
-    --dark-red: #c53833;
     --orange: #ee6b2f;
     --white: #fff;
     --silver: #c9c9c9;

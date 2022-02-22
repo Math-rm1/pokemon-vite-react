@@ -1,9 +1,9 @@
 import React from 'react';
 import reactDom from 'react-dom';
 import {
-  ModalContainer,
-  ModalLeftContainer,
-  ModalRightContainer,
+  StyledModal,
+  StyledModalLeft,
+  StyledModalRight,
   Overlay,
 } from '../styles/styles';
 import { ModalProps } from '../types/ModalProps';
@@ -20,8 +20,8 @@ export default function Modal({ detailedPokemon, open, onClose }: ModalProps) {
   return reactDom.createPortal(
     <>
       <Overlay onClick={onClose} />
-      <ModalContainer>
-        <ModalLeftContainer>
+      <StyledModal>
+        <StyledModalLeft>
           <FaArrowAltCircleLeft size={36} onClick={onClose} />
           <img src={img} alt={detailedPokemon.name} />
           <h3>{detailedPokemon.name}</h3>
@@ -29,8 +29,8 @@ export default function Modal({ detailedPokemon, open, onClose }: ModalProps) {
             <h4>Height: {detailedPokemon.height / 10}m</h4>
             <h4>Weight: {detailedPokemon.weight / 10}kg</h4>
           </div>
-        </ModalLeftContainer>
-        <ModalRightContainer>
+        </StyledModalLeft>
+        <StyledModalRight>
           <div>
             <h3>Stats</h3>
             {detailedPokemon.stats.map(stat => (
@@ -49,8 +49,8 @@ export default function Modal({ detailedPokemon, open, onClose }: ModalProps) {
               </h4>
             ))}
           </div>
-        </ModalRightContainer>
-      </ModalContainer>
+        </StyledModalRight>
+      </StyledModal>
     </>,
     document.getElementById('portal') as HTMLElement,
   );

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { FaStar, FaRegStar, FaArrowAltCircleRight } from 'react-icons/fa';
 import {
-  CardContainer,
-  DetailsContainer,
-  IconContainer,
-  TypeItem,
-  TypesContainer,
+  StyledCard,
+  StyledCardTop,
+  StyledDetails,
+  StyledTypes,
+  StyledType,
 } from '../styles/styles';
 import { CardProps } from '../types/CardProps';
 import { typeColors } from '../colors/TypeColors';
+import { hasPokemon } from '../helpers/hasPokemon';
 
 export default function Card({
   pokemon,
@@ -19,8 +20,7 @@ export default function Card({
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   useEffect(() => {
-    const hasPokemon = favoritePokemons.some(p => p.id === pokemon.id);
-    if (hasPokemon) setIsFavorite(true);
+    if (hasPokemon(favoritePokemons, pokemon)) setIsFavorite(true);
   }, [isFavorite]);
 
   const img =
@@ -30,13 +30,13 @@ export default function Card({
   const Star = isFavorite ? FaStar : FaRegStar;
 
   return (
-    <CardContainer
+    <StyledCard
       mainColor={`#${
         typeColors[pokemon.types[0].type.name as keyof typeof typeColors]
       }`}
-      id={`#${pokemon.id}`}
     >
-      <IconContainer>
+      <StyledCardTop>
+        <span>#{pokemon.id}</span>
         <Star
           color={isFavorite ? '#fbc706' : 'white'}
           size={24}
@@ -45,23 +45,23 @@ export default function Card({
             setIsFavorite(!isFavorite);
           }}
         />
-      </IconContainer>
+      </StyledCardTop>
       <img src={img} alt={pokemon.name} />
       <h2>{pokemon.name}</h2>
-      <TypesContainer>
+      <StyledTypes>
         {pokemon.types.map(t => (
-          <TypeItem
+          <StyledType
             typeColor={`#${typeColors[t.type.name as keyof typeof typeColors]}`}
             key={`${pokemon.id} - ${t.type.name}`}
           >
             {t.type.name}
-          </TypeItem>
+          </StyledType>
         ))}
-      </TypesContainer>
-      <DetailsContainer onClick={() => handleOpenModal(pokemon)}>
-        <h4>Details</h4>
+      </StyledTypes>
+      <StyledDetails onClick={() => handleOpenModal(pokemon)}>
+        <h3>Details</h3>
         <FaArrowAltCircleRight />
-      </DetailsContainer>
-    </CardContainer>
+      </StyledDetails>
+    </StyledCard>
   );
 }

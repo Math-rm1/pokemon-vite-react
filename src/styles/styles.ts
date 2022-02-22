@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { StyledCardProps } from '../types/StyledCardProps';
 import Variables from './Variables';
 
 //#region Animations
@@ -29,15 +30,6 @@ const slideInFromBottom = keyframes`
   }
 `;
 
-const slideInFromTop = keyframes`
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(0);
-  }
-`;
-
 const slideInFromLeft = keyframes`
   0% {
     transform: translateX(-100%);
@@ -50,13 +42,24 @@ const slideInFromLeft = keyframes`
 //#endregion
 
 //#region Card
-export const TypesContainer = styled.div`
+export const StyledTypes = styled.div`
+  span {
+    font-size: var(--fz-md);
+    font-weight: bold;
+  }
+
   > span:nth-child(2) {
     margin-left: 10px;
   }
+
+  @media screen and (max-width: 720px) {
+    span {
+      font-size: var(--fz-sm);
+    }
+  }
 `;
 
-export const TypeItem = styled.span.attrs(
+export const StyledType = styled.span.attrs(
   (props: { typeColor: string; id: string }) => props,
 )`
   background: ${props => props.typeColor};
@@ -64,17 +67,25 @@ export const TypeItem = styled.span.attrs(
   display: inline-block;
   text-align: center;
 
-  width: 70px;
+  width: 90px;
   border-radius: 5px;
+
+  @media screen and (max-width: 720px) {
+    width: 70px;
+  }
 `;
 
-export const DetailsContainer = styled.div`
+export const StyledDetails = styled.div`
   display: flex;
   align-items: center;
 
+  svg {
+    font-size: var(--fz-md);
+  }
+
   cursor: pointer;
 
-  > h4 {
+  > h3 {
     margin-right: 10px;
     font-weight: normal;
   }
@@ -83,11 +94,26 @@ export const DetailsContainer = styled.div`
   :hover {
     color: var(--silver);
   }
+
+  @media screen and (max-width: 720px) {
+    svg {
+      font-size: var(--fz-sm);
+    }
+  }
 `;
 
-export const IconContainer = styled.div`
+export const StyledCardTop = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    font-size: var(--fz-xl);
+
+    @media screen and (max-width: 720px) {
+      font-size: var(--fz-lg);
+    }
+  }
 
   svg {
     cursor: pointer;
@@ -96,18 +122,21 @@ export const IconContainer = styled.div`
   width: 80%;
 `;
 
-export const CardContainer = styled.div.attrs(
-  (props: { mainColor: string; id: string }) => props,
-)`
+export const StyledCard = styled.div.attrs((props: StyledCardProps) => {
+  return {
+    style: {
+      background: `linear-gradient(${props.mainColor} 0% 60%, var(--raven-black) 60% 100%)`,
+    },
+  };
+})<StyledCardProps>`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  border-radius: 5px;
 
-  border-radius: 10px;
-
-  min-width: 230px;
-  width: 340px;
+  min-width: 250px;
+  width: 320px;
   height: 340px;
 
   animation: ${fadeIn} 1s;
@@ -123,16 +152,6 @@ export const CardContainer = styled.div.attrs(
     transform: scale(1.05);
   }
 
-  :after {
-    content: '${props => props.id}';
-    font-size: var(--fz-xxl);
-    color: var(--white);
-    z-index: 0;
-    position: absolute;
-    top: 5%;
-    left: 5%;
-  }
-
   :before {
     content: '';
     z-index: 0;
@@ -145,11 +164,6 @@ export const CardContainer = styled.div.attrs(
     background: var(--white);
     opacity: 0.2;
   }
-
-  background: linear-gradient(
-    ${props => props.mainColor} 0% 60%,
-    var(--raven-black) 60% 100%
-  );
 
   h2 {
     text-transform: capitalize;
@@ -164,46 +178,79 @@ export const CardContainer = styled.div.attrs(
 //#endregion
 
 //#region MainList
-export const ListInputContainer = styled.div`
+export const StyledInputWrapper = styled.div`
   display: flex;
   justify-content: center;
 
-  margin: 20px;
+  margin-top: 60px;
+  margin-bottom: 20px;
+
+  input::placeholder {
+    color: var(--light-gray);
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    background: var(--orange);
+  }
 
   input {
-    height: 35px;
+    height: 40px;
     min-width: 30%;
 
-    animation: ${slideInFromLeft} 0.5s;
-
-    background-color: var(--white);
-    color: var(--black);
+    background-color: var(--raven-black);
+    color: var(--white);
+    font-weight: bold;
 
     font-size: var(--fz-md);
+    border: none;
+    border: 2px solid var(--orange);
 
-    border: 1px solid var(--white);
-    border-radius: 5px;
+    padding: 10px 10px 10px 20px;
 
-    padding: 20px;
+    border-radius: 5px 0px 0px 5px;
+  }
 
-    cursor: auto;
+  label {
+    font-size: var(--fz-md);
+    height: 40px;
+    width: 40px;
+    display: grid;
+    place-items: center;
+    background: var(--orange);
+    color: var(--white);
+    border-radius: 0px 5px 5px 0px;
+  }
+
+  label,
+  input {
+    animation: ${slideInFromLeft} 0.5s;
+  }
+
+  @media screen and (max-width: 1160px) {
+    input::placeholder {
+      font-size: var(--fz-sm);
+    }
   }
 `;
 
-export const ListContent = styled.div`
+export const StyledListContent = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
 `;
 
-export const ListContainer = styled.div`
+export const StyledList = styled.section`
   width: 80%;
-  min-width: 280px;
+  min-width: 250px;
   height: 100%;
 
   margin: 20px auto 20px auto;
-  padding: 5px;
 
   border-radius: 5px;
 
@@ -212,16 +259,16 @@ export const ListContainer = styled.div`
 //#endregion
 
 //#region Favorites
-export const FavoriteListContainer = styled.div`
+export const StyledFavListContent = styled.section`
   display: flex;
   flex-direction: column;
 
-  width: 50%;
+  width: 60%;
   min-width: 260px;
 
-  border-radius: 10px;
+  border-radius: 5px;
 
-  background-color: var(--raven-black);
+  /* background-color: var(--raven-black); */
   animation: ${slideInFromBottom} 1s, ${fadeIn} 1s;
 
   margin: 40px auto;
@@ -231,7 +278,7 @@ export const FavoriteListContainer = styled.div`
   }
 `;
 
-export const FavoriteListEmpty = styled.div`
+export const StyledFavListEmpty = styled.section`
   transition: var(--transition);
   h2 {
     animation: ${slideInFromBottom} 1s, ${fadeIn} 1s;
@@ -240,16 +287,36 @@ export const FavoriteListEmpty = styled.div`
   }
 `;
 
-export const FavoriteItemContainer = styled.div`
+//#endregion
+
+//#region Favorite Item
+export const StyledFavItem = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
 
+  background: linear-gradient(
+    to right,
+    var(--orange) 0% 25%,
+    var(--raven-black) 25% 100%
+  );
+
+  border-radius: 5px;
+
   width: 100%;
   margin: 20px auto;
+  border: 2px solid var(--orange);
 
   svg {
     cursor: pointer;
+    font-size: var(--fz-md);
+
+    :nth-of-type(1) {
+      color: var(--ligth-gray);
+    }
+    :nth-of-type(2) {
+      color: var(--red);
+    }
   }
 
   img {
@@ -263,10 +330,6 @@ export const FavoriteItemContainer = styled.div`
   }
 
   @media only screen and (max-width: 720px) {
-    h4 {
-      font-size: var(--fz-sm);
-    }
-
     img {
       width: 60px;
     }
@@ -276,9 +339,7 @@ export const FavoriteItemContainer = styled.div`
     img {
       width: 40px;
     }
-    h4 {
-      font-size: var(--fz-xs);
-    }
+
     svg:nth-of-type(1) {
       display: none;
     }
@@ -288,7 +349,7 @@ export const FavoriteItemContainer = styled.div`
 //#endregion
 
 //#region Pagination
-export const PaginationButton = styled.button`
+export const StyledPagButton = styled.button`
   border: none;
   border-radius: 5px;
 
@@ -313,7 +374,7 @@ export const PaginationButton = styled.button`
   }
 `;
 
-export const PaginationContainer = styled.div`
+export const StyledPag = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -334,7 +395,7 @@ export const PaginationContainer = styled.div`
 //#endregion
 
 //#region Header
-export const HeaderContainer = styled.header`
+export const StyledHeader = styled.header`
   ${Variables};
 
   height: 80px;
@@ -344,7 +405,7 @@ export const HeaderContainer = styled.header`
   background-color: var(--orange);
 `;
 
-export const HeaderContent = styled.nav`
+export const StyledHeaderContent = styled.nav`
   align-items: center;
   display: flex;
 
@@ -358,16 +419,21 @@ export const HeaderContent = styled.nav`
     flex-grow: 1;
     align-items: center;
     justify-content: space-between;
+  }
 
-    li {
-      padding: 5px;
+  @media screen and (max-width: 720px) {
+    svg {
+      width: 24px;
     }
+  }
+  @media only screen and (max-width: 360px) {
+    width: 90%;
   }
 `;
 //#endregion
 
 //#region Modal
-export const ModalContainer = styled.div`
+export const StyledModal = styled.div`
   position: fixed;
   transform: translate(-50%, -50%);
   left: 50%;
@@ -377,14 +443,15 @@ export const ModalContainer = styled.div`
   display: flex;
 
   width: 40%;
-  min-width: 280px;
+  min-width: 260px;
 
-  padding: 10px;
-  border-radius: 10px;
+  padding: 20px;
+  border-radius: 5px;
+  border: 2px solid var(--orange);
 
   background-color: var(--dark-gray);
 
-  animation: ${fadeIn} 1.5s;
+  animation: ${fadeIn} 0.25s;
 
   svg {
     margin-right: auto;
@@ -408,7 +475,8 @@ export const ModalContainer = styled.div`
   }
 
   @media only screen and (max-width: 860px) {
-    width: 90%;
+    padding: 10px;
+    width: 95%;
     h3 {
       font-size: var(--fz-md);
     }
@@ -419,7 +487,101 @@ export const ModalContainer = styled.div`
   }
 `;
 
-export const StatsItemContainer = styled.div`
+export const StyledModalLeft = styled.div`
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  text-transform: capitalize;
+
+  border-radius: 5px;
+
+  margin-right: 40px;
+
+  h3 {
+    border-bottom: 1px solid var(--orange);
+
+    background: var(--raven-black);
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+  }
+
+  h4 {
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 768px) {
+    margin-right: 0;
+    padding: 10px;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+`;
+
+export const StyledModalRight = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  padding: 20px;
+
+  width: 80%;
+
+  h4 {
+    text-transform: capitalize;
+    text-align: center;
+  }
+
+  h3 {
+    text-align: center;
+    border-bottom: 1px solid var(--orange);
+
+    background: var(--raven-black);
+    border-radius: 5px;
+
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-left: auto;
+  }
+
+  div:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media only screen and (max-width: 768px) {
+    justify-content: space-between;
+  }
+
+  @media only screen and (max-width: 360px) {
+    padding: 10px;
+  }
+`;
+
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+
+  background-color: rgba(0, 0, 0, 0.7);
+`;
+
+//#endregion
+
+//#region Stat Item
+export const StyledStatsItem = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -465,99 +627,10 @@ export const StatsItemContainer = styled.div`
     }
   }
 `;
-
-export const ModalLeftContainer = styled.div`
-  padding: 20px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-
-  text-transform: capitalize;
-
-  border-radius: 10px;
-
-  margin-right: 40px;
-
-  h3 {
-    border-bottom: 1px solid var(--orange);
-
-    background: var(--raven-black);
-    border-radius: 5px;
-    width: 100%;
-    text-align: center;
-  }
-
-  h4 {
-    text-align: center;
-  }
-
-  @media only screen and (max-width: 768px) {
-    margin-right: 0;
-
-    img {
-      width: 100px;
-      height: 100px;
-    }
-  }
-`;
-
-export const ModalRightContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-
-  padding: 20px;
-
-  width: 80%;
-  border-radius: 10px;
-
-  h4 {
-    text-transform: capitalize;
-    text-align: center;
-  }
-
-  h3 {
-    text-align: center;
-    border-bottom: 1px solid var(--orange);
-
-    background: var(--raven-black);
-    border-radius: 5px;
-
-    margin-top: 20px;
-    margin-bottom: 10px;
-  }
-
-  button {
-    margin-left: auto;
-  }
-
-  div:nth-child(2) {
-    display: flex;
-    flex-direction: column;
-  }
-
-  @media only screen and (max-width: 768px) {
-    justify-content: space-between;
-  }
-`;
-
-export const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1000;
-
-  background-color: rgba(0, 0, 0, 0.7);
-`;
-
 //#endregion
 
 //#region Loading
-export const LoadingContainer = styled.div`
+export const StyledLoading = styled.div`
   margin-top: 40px;
 
   text-align: center;

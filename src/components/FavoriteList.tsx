@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { upperPokeName } from '../helpers/upperCaseName';
-import { FavoriteListContainer, FavoriteListEmpty } from '../styles/styles';
+import { StyledFavListContent, StyledFavListEmpty } from '../styles/styles';
+import { toastStyles } from '../styles/toastStyles';
 import { Pokemon } from '../types/Pokemon';
 import { Delay } from './Delay';
 import FavoriteItem from './FavoriteItem';
@@ -29,9 +30,14 @@ export default function FavoriteList() {
 
   return (
     <>
-      <Toaster reverseOrder={false} />
+      <Toaster
+        toastOptions={{
+          style: toastStyles,
+        }}
+        reverseOrder={false}
+      />
       {favoritePokemons.length > 0 ? (
-        <FavoriteListContainer>
+        <StyledFavListContent>
           {favoritePokemons.map(p => (
             <FavoriteItem
               key={`${p.id} - ${p.name}`}
@@ -39,11 +45,11 @@ export default function FavoriteList() {
               handleRemove={handleRemove}
             />
           ))}
-        </FavoriteListContainer>
+        </StyledFavListContent>
       ) : (
-        <FavoriteListEmpty>
+        <StyledFavListEmpty>
           {<Delay ms={750}>{<h2>Add a favorite pokémon!</h2>}</Delay>}
-        </FavoriteListEmpty>
+        </StyledFavListEmpty>
       )}
     </>
   );

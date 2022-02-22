@@ -1,5 +1,5 @@
 import React from 'react';
-import { PaginationButton, PaginationContainer } from '../styles/styles';
+import { StyledPagButton, StyledPag } from '../styles/styles';
 import { PaginationProps } from '../types/PaginationProps';
 
 export default function Pagination({
@@ -7,13 +7,13 @@ export default function Pagination({
   gotoPreviousPage,
 }: PaginationProps) {
   return (
-    <PaginationContainer>
+    <StyledPag>
       {gotoPreviousPage && (
-        <PaginationButton onClick={gotoPreviousPage}>Previous</PaginationButton>
+        <StyledPagButton onClick={gotoPreviousPage}>Previous</StyledPagButton>
       )}
       {gotoNextPage && (
-        <PaginationButton onClick={gotoNextPage}>Next</PaginationButton>
+        <StyledPagButton onClick={gotoNextPage}>Next</StyledPagButton>
       )}
-    </PaginationContainer>
+    </StyledPag>
   );
 }

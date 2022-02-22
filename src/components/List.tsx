@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import { FaSearch } from 'react-icons/fa';
 import { hasPokemon } from '../helpers/hasPokemon';
 import { upperPokeName } from '../helpers/upperCaseName';
 import {
-  ListContainer,
-  ListContent,
-  ListInputContainer,
-  LoadingContainer,
+  StyledList,
+  StyledListContent,
+  StyledInputWrapper,
+  StyledLoading,
 } from '../styles/styles';
+import { toastStyles } from '../styles/toastStyles';
 import { PokeListProps } from '../types/PokeListProps';
 import { Pokemon } from '../types/Pokemon';
 import Card from './Card';
@@ -53,17 +55,26 @@ export default function List({ pokemonList, isLoading }: PokeListProps) {
 
   return (
     <>
-      <Toaster reverseOrder={false} />
-      <ListContainer>
-        <ListInputContainer>
+      <Toaster
+        toastOptions={{
+          style: toastStyles,
+        }}
+        reverseOrder={false}
+      />
+      <StyledList>
+        <StyledInputWrapper>
           <input
+            id='search'
             type='search'
             onChange={event => setSearch(event.target.value.trim())}
-            placeholder='Search a pokémon'
+            placeholder='Search for a pokemon by name'
           />
-        </ListInputContainer>
+          <label htmlFor='search'>
+            <FaSearch size={24} />
+          </label>
+        </StyledInputWrapper>
         {!isLoading ? (
-          <ListContent>
+          <StyledListContent>
             {pokemonList
               ?.filter(p => {
                 if (!search) return p;
@@ -79,13 +90,13 @@ export default function List({ pokemonList, isLoading }: PokeListProps) {
                   handleFavorite={handleFavorite}
                 />
               ))}
-          </ListContent>
+          </StyledListContent>
         ) : (
-          <LoadingContainer>
+          <StyledLoading>
             <h2>Loading...</h2>
-          </LoadingContainer>
+          </StyledLoading>
         )}
-      </ListContainer>
+      </StyledList>
 
       <Modal
         detailedPokemon={detailedPokemon}
