@@ -263,7 +263,7 @@ export const StyledFavListContent = styled.section`
   display: flex;
   flex-direction: column;
 
-  width: 60%;
+  width: 40%;
   min-width: 260px;
 
   border-radius: 5px;
@@ -292,58 +292,40 @@ export const StyledFavListEmpty = styled.section`
 //#region Favorite Item
 export const StyledFavItem = styled.div`
   display: flex;
-  justify-content: space-around;
   align-items: center;
-
-  background: linear-gradient(
-    to right,
-    var(--orange) 0% 25%,
-    var(--raven-black) 25% 100%
-  );
-
-  border-radius: 5px;
+  overflow: hidden;
 
   width: 100%;
   margin: 20px auto;
+
+  border-radius: 20px 5px 20px 20px;
   border: 2px solid var(--orange);
 
   svg {
-    cursor: pointer;
-    font-size: var(--fz-md);
+    flex: 1;
 
-    :nth-of-type(1) {
-      color: var(--ligth-gray);
-    }
-    :nth-of-type(2) {
-      color: var(--red);
-    }
+    cursor: pointer;
+
+    font-size: var(--fz-md);
+    color: var(--red);
   }
 
   img {
-    width: 80px;
+    max-width: 130px;
+    flex: 1;
+    background: var(--orange);
   }
 
   h4 {
-    width: 40%;
+    flex: 2;
     text-align: center;
     text-transform: capitalize;
   }
 
-  @media only screen and (max-width: 720px) {
-    img {
-      width: 60px;
-    }
-  }
-
   @media only screen and (max-width: 460px) {
     img {
-      width: 40px;
+      width: 80px;
     }
-
-    svg:nth-of-type(1) {
-      display: none;
-    }
-    justify-content: space-around;
   }
 `;
 //#endregion
