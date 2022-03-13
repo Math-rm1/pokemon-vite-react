@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components';
 import { StyledCardProps } from '../types/StyledCardProps';
 import Variables from './Variables';
 
-//#region Animations
+// #region Animations
 const imgIn = keyframes`
   0% { 
     transform: rotateY(40deg);
@@ -39,9 +39,9 @@ const slideInFromLeft = keyframes`
   }
 `;
 
-//#endregion
+// #endregion
 
-//#region Card
+// #region Card
 export const StyledTypes = styled.div`
   span {
     font-size: var(--fz-md);
@@ -62,7 +62,7 @@ export const StyledTypes = styled.div`
 export const StyledType = styled.span.attrs(
   (props: { typeColor: string; id: string }) => props,
 )`
-  background: ${props => props.typeColor};
+  background: ${(props) => props.typeColor};
 
   display: inline-block;
   text-align: center;
@@ -175,9 +175,9 @@ export const StyledCard = styled.div.attrs((props: StyledCardProps) => {
     height: 145px;
   }
 `;
-//#endregion
+// #endregion
 
-//#region MainList
+// #region MainList
 export const StyledInputWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -256,9 +256,9 @@ export const StyledList = styled.section`
 
   background-color: var(--dark-gray);
 `;
-//#endregion
+// #endregion
 
-//#region Favorites
+// #region Favorites
 export const StyledFavListContent = styled.section`
   display: flex;
   flex-direction: column;
@@ -287,9 +287,9 @@ export const StyledFavListEmpty = styled.section`
   }
 `;
 
-//#endregion
+// #endregion
 
-//#region Favorite Item
+// #region Favorite Item
 export const StyledFavItem = styled.div`
   display: flex;
   align-items: center;
@@ -328,9 +328,9 @@ export const StyledFavItem = styled.div`
     }
   }
 `;
-//#endregion
+// #endregion
 
-//#region Pagination
+// #region Pagination
 export const StyledPagButton = styled.button`
   border: none;
   border-radius: 5px;
@@ -374,9 +374,9 @@ export const StyledPag = styled.div`
   bottom: 0px;
   left: 0px;
 `;
-//#endregion
+// #endregion
 
-//#region Header
+// #region Header
 export const StyledHeader = styled.header`
   ${Variables};
 
@@ -412,9 +412,9 @@ export const StyledHeaderContent = styled.nav`
     width: 90%;
   }
 `;
-//#endregion
+// #endregion
 
-//#region Modal
+// #region Modal
 export const StyledModal = styled.div`
   position: fixed;
   transform: translate(-50%, -50%);
@@ -560,9 +560,9 @@ export const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.7);
 `;
 
-//#endregion
+// #endregion
 
-//#region Stat Item
+// #region Stat Item
 export const StyledStatsItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -609,12 +609,12 @@ export const StyledStatsItem = styled.div`
     }
   }
 `;
-//#endregion
+// #endregion
 
-//#region Loading
-export const StyledLoading = styled.div`
+// #region Loading
+export const StyledMessage = styled.div`
   margin-top: 40px;
 
   text-align: center;
 `;
-//#endregion
+// #endregion

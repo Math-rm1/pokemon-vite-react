@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { upperPokeName } from '../helpers/upperCaseName';
-import { StyledFavListContent, StyledFavListEmpty } from '../styles/styles';
-import { toastStyles } from '../styles/toastStyles';
-import { Pokemon } from '../types/Pokemon';
-import { Delay } from './Delay';
-import FavoriteItem from './FavoriteItem';
+import { upperPokeName } from '../../helpers';
+import { StyledFavListContent, StyledFavListEmpty } from '../../styles/Styles';
+import toastStyles from '../../styles/ToastStyles';
+import { Pokemon } from '../../types/Pokemon';
+import Delay from '../Delay';
+import FavoriteItem from '../FavoriteItem';
 
-export default function FavoriteList() {
+function FavoriteList() {
   const [favoritePokemons, setFavoritePokemons] = useState<Pokemon[]>([]);
 
   const handleRemove = (id: number, name: string) => {
-    setFavoritePokemons(prevFavPokemons =>
-      prevFavPokemons.filter(p => p.id !== id),
+    setFavoritePokemons((prevFavPokemons) =>
+      prevFavPokemons.filter((p) => p.id !== id),
     );
 
     const pokemonName = upperPokeName(name);
@@ -38,7 +38,7 @@ export default function FavoriteList() {
       />
       {favoritePokemons.length > 0 ? (
         <StyledFavListContent>
-          {favoritePokemons.map(p => (
+          {favoritePokemons.map((p) => (
             <FavoriteItem
               key={`${p.id} - ${p.name}`}
               pokemon={p}
@@ -48,9 +48,13 @@ export default function FavoriteList() {
         </StyledFavListContent>
       ) : (
         <StyledFavListEmpty>
-          {<Delay ms={750}>{<h2>Add a favorite pokémon!</h2>}</Delay>}
+          <Delay ms={750}>
+            <h2>Add a favorite pokémon!</h2>
+          </Delay>
         </StyledFavListEmpty>
       )}
     </>
   );
 }
+
+export default FavoriteList;

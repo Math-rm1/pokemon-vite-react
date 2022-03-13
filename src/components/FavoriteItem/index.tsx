@@ -1,12 +1,9 @@
 import React from 'react';
-import { StyledFavItem } from '../styles/styles';
 import { FaTrashAlt } from 'react-icons/fa';
-import { FavoriteItemProps } from '../types/FavoriteItemProps';
+import { StyledFavItem } from '../../styles/Styles';
+import { FavoriteItemProps } from '../../types/FavoriteItemProps';
 
-export default function FavoriteItem({
-  pokemon,
-  handleRemove,
-}: FavoriteItemProps) {
+function FavoriteItem({ pokemon, handleRemove }: FavoriteItemProps) {
   const imgGame = pokemon.sprites.front_default;
 
   return (
@@ -17,3 +14,5 @@ export default function FavoriteItem({
     </StyledFavItem>
   );
 }
+
+export default FavoriteItem;

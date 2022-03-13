@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 import Variables from './Variables';
 
-export const GlobalStyles = createGlobalStyle`
+const GlobalStyles = createGlobalStyle`
   ${Variables};
 
   *,
@@ -117,3 +117,5 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 `;
+
+export default GlobalStyles;

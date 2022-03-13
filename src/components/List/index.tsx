@@ -1,21 +1,21 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaSearch } from 'react-icons/fa';
-import { hasPokemon } from '../helpers/hasPokemon';
-import { upperPokeName } from '../helpers/upperCaseName';
+import { hasPokemon, upperPokeName } from '../../helpers';
 import {
   StyledList,
   StyledListContent,
   StyledInputWrapper,
-  StyledLoading,
-} from '../styles/styles';
-import { toastStyles } from '../styles/toastStyles';
-import { PokeListProps } from '../types/PokeListProps';
-import { Pokemon } from '../types/Pokemon';
-import Card from './Card';
-import Modal from './Modal';
+  StyledMessage,
+} from '../../styles/Styles';
+import toastStyles from '../../styles/ToastStyles';
+import { PokeListProps } from '../../types/PokeListProps';
+import { Pokemon } from '../../types/Pokemon';
+import Card from '../Card';
+import Modal from '../Modal';
 
-export default function List({ pokemonList, isLoading }: PokeListProps) {
+function List({ pokemonList, isLoading, error }: PokeListProps) {
   const [detailedPokemon, setDetailedPokemon] = useState<Pokemon>();
   const [favoritePokemons, setFavoritePokemons] = useState<Pokemon[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -43,12 +43,12 @@ export default function List({ pokemonList, isLoading }: PokeListProps) {
   const handleFavorite = (pokemon: Pokemon) => {
     const pokemonName = upperPokeName(pokemon.name);
     if (!hasPokemon(favoritePokemons, pokemon)) {
-      setFavoritePokemons(prevFavPokemons => [...prevFavPokemons, pokemon]);
+      setFavoritePokemons((prevFavPokemons) => [...prevFavPokemons, pokemon]);
       toast.success(`${pokemonName} added to your favorites!`);
       return;
     }
-    setFavoritePokemons(prevFavPokemons =>
-      prevFavPokemons.filter(p => p.id != pokemon.id),
+    setFavoritePokemons((prevFavPokemons) =>
+      prevFavPokemons.filter((p) => p.id !== pokemon.id),
     );
     toast.success(`${pokemonName} removed from your favorites!`);
   };
@@ -66,22 +66,30 @@ export default function List({ pokemonList, isLoading }: PokeListProps) {
           <input
             id='search'
             type='search'
-            onChange={event => setSearch(event.target.value.trim())}
+            onChange={(event) => setSearch(event.target.value.trim())}
             placeholder='Search for a pokemon by name'
           />
           <label htmlFor='search'>
             <FaSearch size={24} />
           </label>
         </StyledInputWrapper>
-        {!isLoading ? (
+        {error && (
+          <StyledMessage>
+            <h2>{error}</h2>
+          </StyledMessage>
+        )}
+        {isLoading && (
+          <StyledMessage>
+            <h2>Loading...</h2>
+          </StyledMessage>
+        )}
+        {!error && !isLoading && (
           <StyledListContent>
             {pokemonList
-              ?.filter(p => {
-                if (!search) return p;
-                if (p.name.toLowerCase().includes(search.toLowerCase()))
-                  return p;
-              })
-              .map(p => (
+              ?.filter((p) =>
+                p.name.toLowerCase().includes(search.toLowerCase()),
+              )
+              .map((p) => (
                 <Card
                   key={p.id}
                   pokemon={p}
@@ -91,10 +99,6 @@ export default function List({ pokemonList, isLoading }: PokeListProps) {
                 />
               ))}
           </StyledListContent>
-        ) : (
-          <StyledLoading>
-            <h2>Loading...</h2>
-          </StyledLoading>
         )}
       </StyledList>
 
@@ -106,3 +110,5 @@ export default function List({ pokemonList, isLoading }: PokeListProps) {
     </>
   );
 }
+
+export default List;

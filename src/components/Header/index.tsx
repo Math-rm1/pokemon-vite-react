@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyledHeader, StyledHeaderContent } from '../styles/styles';
 import { BsBookmarkStarFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
+import { StyledHeader, StyledHeaderContent } from '../../styles/Styles';
 
-export default function Header() {
+function Header() {
   return (
     <StyledHeader>
       <StyledHeaderContent>
@@ -24,3 +24,5 @@ export default function Header() {
     </StyledHeader>
   );
 }
+
+export default Header;

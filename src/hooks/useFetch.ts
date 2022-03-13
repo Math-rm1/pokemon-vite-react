@@ -1,51 +1,74 @@
-import axios, { AxiosResponse, CancelTokenSource } from 'axios';
-import { useState, useEffect } from 'react';
+import axios, { AxiosResponse } from 'axios';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { PokemonResponse } from '../types/PokemonResponse';
 
-export function useFetch<T = unknown>(url: string) {
+function useFetch<T = unknown>(url: string) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [previousUrl, setPreviousUrl] = useState<string | null>(null);
   const [nextUrl, setNextUrl] = useState<string | null>(null);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<T | null>(null);
+  const abortController = useRef<AbortController | null>(null);
+
+  const fetchData = useCallback(async () => {
+    try {
+      // reset error state
+      setError(null);
+
+      // init abort controller
+      abortController.current = new AbortController();
+
+      // set loading state
+      setIsLoading(true);
+
+      // fetch data
+      const res: AxiosResponse = await axios.get(url, {
+        signal: abortController.current.signal,
+      });
+
+      // set data if there is a results array
+      if (res.data.results) {
+        const dataResults = (await Promise.all(
+          res.data.results.map(
+            async (p: PokemonResponse) => (await axios.get(p.url)).data,
+          ),
+        )) as unknown as T;
+
+        // set some state
+        setData(dataResults);
+        setPreviousUrl(res.data.previous);
+        setNextUrl(res.data.next);
+        setError(null);
+
+        return;
+      }
+
+      // set data if there is no results array
+      if (res.data) {
+        // set some state
+        setData(res.data as T);
+        setError(null);
+      }
+      // if there is a error
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+      // executed in both cases
+    } finally {
+      setIsLoading(false);
+    }
+  }, [url]);
 
   useEffect(() => {
-    const controller = new AbortController();
-
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const res: AxiosResponse = await axios.get(url, {
-          signal: controller.signal,
-        });
-
-        if (res.data.results) {
-          const dataResults = (await Promise.all(
-            res.data.results.map(
-              async (p: any) => (await axios.get(p.url)).data,
-            ),
-          )) as unknown as T;
-
-          setData(dataResults);
-          setPreviousUrl(res.data.previous);
-          setNextUrl(res.data.next);
-          return;
-        }
-        if (res.data) setData(res.data as T);
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err);
-        }
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
+    // fetch data on mount and if the url changes because fetchData uses the useCallback hook with the url as a dependency
     fetchData();
 
-    return () => {
-      controller.abort();
-    };
-  }, [url]);
+    // cleanup abort controller
+    return () => abortController.current?.abort();
+  }, [fetchData]);
 
   return { data, error, isLoading, previousUrl, nextUrl };
 }
+
+export default useFetch;

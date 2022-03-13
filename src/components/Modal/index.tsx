@@ -1,16 +1,16 @@
 import React from 'react';
 import reactDom from 'react-dom';
+import { FaArrowAltCircleLeft } from 'react-icons/fa';
 import {
   StyledModal,
   StyledModalLeft,
   StyledModalRight,
   Overlay,
-} from '../styles/styles';
-import { ModalProps } from '../types/ModalProps';
-import StatsItem from './StatsItem';
-import { FaArrowAltCircleLeft } from 'react-icons/fa';
+} from '../../styles/Styles';
+import { ModalProps } from '../../types/ModalProps';
+import StatsItem from '../StatsItem';
 
-export default function Modal({ detailedPokemon, open, onClose }: ModalProps) {
+function Modal({ detailedPokemon, open, onClose }: ModalProps) {
   if (!open || !detailedPokemon) return null;
 
   const img =
@@ -33,7 +33,7 @@ export default function Modal({ detailedPokemon, open, onClose }: ModalProps) {
         <StyledModalRight>
           <div>
             <h3>Stats</h3>
-            {detailedPokemon.stats.map(stat => (
+            {detailedPokemon.stats.map((stat) => (
               <StatsItem
                 key={detailedPokemon.id + stat.stat.name}
                 name={stat.stat.name}
@@ -43,7 +43,7 @@ export default function Modal({ detailedPokemon, open, onClose }: ModalProps) {
           </div>
           <div>
             <h3>Abilities</h3>
-            {detailedPokemon.abilities.map(ability => (
+            {detailedPokemon.abilities.map((ability) => (
               <h4 key={detailedPokemon.id + ability.ability.name}>
                 {ability.ability.name}
               </h4>
@@ -55,3 +55,5 @@ export default function Modal({ detailedPokemon, open, onClose }: ModalProps) {
     document.getElementById('portal') as HTMLElement,
   );
 }
+
+export default Modal;

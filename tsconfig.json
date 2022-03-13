@@ -15,5 +15,7 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["./src"]
+  // inlucude ts and tsx
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["./node_modules"]
 }

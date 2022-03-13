@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Header from '../components/Header';
-import List from '../components/List';
-import Pagination from '../components/Pagination';
-import { useFetch } from '../hooks/useFetch';
-import { Pokemon } from '../types/Pokemon';
+import Header from '../../components/Header';
+import List from '../../components/List';
+import Pagination from '../../components/Pagination';
+import useFetch from '../../hooks/useFetch';
+import { Pokemon } from '../../types/Pokemon';
 
 export default function Home() {
   const [currentPageUrl, setCurrentPageUrl] = useState<string>(
@@ -15,7 +15,8 @@ export default function Home() {
     isLoading,
     previousUrl,
     nextUrl,
-  } = useFetch<Pokemon[]>(currentPageUrl);
+    error,
+  } = useFetch<Pokemon[]>(`${currentPageUrl}?limit=20`);
 
   function gotoNextPage() {
     if (nextUrl) setCurrentPageUrl(nextUrl);
@@ -28,7 +29,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <List pokemonList={pokemonList} isLoading={isLoading} />
+      <List pokemonList={pokemonList} error={error} isLoading={isLoading} />
       <Pagination
         gotoNextPage={nextUrl ? gotoNextPage : null}
         gotoPreviousPage={previousUrl ? gotoPrevPage : null}

@@ -1,4 +1,4 @@
-export const typeColors = {
+const POKEMON_TYPE_COLORS = {
   bug: 'B1C12E',
   dark: '4F3A2D',
   dragon: '755EDF',
@@ -18,3 +18,5 @@ export const typeColors = {
   steel: 'B5B5C3',
   water: '3295F6',
 };
+
+export default POKEMON_TYPE_COLORS;

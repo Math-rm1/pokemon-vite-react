@@ -6,12 +6,13 @@ import {
   StyledDetails,
   StyledTypes,
   StyledType,
-} from '../styles/styles';
-import { CardProps } from '../types/CardProps';
-import { typeColors } from '../colors/TypeColors';
-import { hasPokemon } from '../helpers/hasPokemon';
+} from '../../styles/Styles';
+import { CardProps } from '../../types/CardProps';
+import { hasPokemon } from '../../helpers';
+import POKEMON_TYPE_COLORS from '../../colors';
+import fallbackImg from '../../img/fallback.png';
 
-export default function Card({
+function Card({
   pokemon,
   favoritePokemons,
   handleFavorite,
@@ -32,7 +33,9 @@ export default function Card({
   return (
     <StyledCard
       mainColor={`#${
-        typeColors[pokemon.types[0].type.name as keyof typeof typeColors]
+        POKEMON_TYPE_COLORS[
+          pokemon.types[0].type.name as keyof typeof POKEMON_TYPE_COLORS
+        ]
       }`}
     >
       <StyledCardTop>
@@ -46,12 +49,16 @@ export default function Card({
           }}
         />
       </StyledCardTop>
-      <img src={img} alt={pokemon.name} />
+      <img src={img || fallbackImg} alt={pokemon.name} />
       <h2>{pokemon.name}</h2>
       <StyledTypes>
-        {pokemon.types.map(t => (
+        {pokemon.types.map((t) => (
           <StyledType
-            typeColor={`#${typeColors[t.type.name as keyof typeof typeColors]}`}
+            typeColor={`#${
+              POKEMON_TYPE_COLORS[
+                t.type.name as keyof typeof POKEMON_TYPE_COLORS
+              ]
+            }`}
             key={`${pokemon.id} - ${t.type.name}`}
           >
             {t.type.name}
@@ -65,3 +72,5 @@ export default function Card({
     </StyledCard>
   );
 }
+
+export default Card;

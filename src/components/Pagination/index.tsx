@@ -1,11 +1,8 @@
 import React from 'react';
-import { StyledPagButton, StyledPag } from '../styles/styles';
-import { PaginationProps } from '../types/PaginationProps';
+import { StyledPagButton, StyledPag } from '../../styles/Styles';
+import { PaginationProps } from '../../types/PaginationProps';
 
-export default function Pagination({
-  gotoNextPage,
-  gotoPreviousPage,
-}: PaginationProps) {
+function Pagination({ gotoNextPage, gotoPreviousPage }: PaginationProps) {
   return (
     <StyledPag>
       {gotoPreviousPage && (
@@ -17,3 +14,5 @@ export default function Pagination({
     </StyledPag>
   );
 }
+
+export default Pagination;

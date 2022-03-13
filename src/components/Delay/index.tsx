@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 
-export const Delay = ({ ms, children }: any) => {
+type DelayProps = {
+  ms: number;
+  children: JSX.Element;
+};
+
+function Delay({ ms, children }: DelayProps) {
   const [hidden, setHidden] = React.useState(true);
 
   useEffect(() => {
@@ -8,10 +13,10 @@ export const Delay = ({ ms, children }: any) => {
       setHidden(false);
     }, ms);
 
-    return () => {
-      clearTimeout(timeout);
-    };
+    return () => clearTimeout(timeout);
   }, []);
 
   return hidden ? null : children;
-};
+}
+
+export default Delay;
